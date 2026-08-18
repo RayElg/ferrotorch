@@ -4719,8 +4719,9 @@ fn apply_matmul_precision(blas: &CudaBlas) -> GpuResult<()> {
     }
 
     let mode = match want {
-        MatmulPrecision::Highest => cublasMath_t::CUBLAS_DEFAULT_MATH,
-        MatmulPrecision::High    => cublasMath_t::CUBLAS_TF32_TENSOR_OP_MATH,
+        MatmulPrecision::Pedantic => cublasMath_t::CUBLAS_PEDANTIC_MATH,
+        MatmulPrecision::Highest  => cublasMath_t::CUBLAS_DEFAULT_MATH,
+        MatmulPrecision::High     => cublasMath_t::CUBLAS_TF32_TENSOR_OP_MATH,
     };
     unsafe { cublasSetMathMode(*blas.handle(), mode).result()?; }
     LAST_APPLIED_MODE.with(|c| c.set(Some(want)));
