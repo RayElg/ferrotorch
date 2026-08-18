@@ -4,6 +4,8 @@ use std::cell::Cell;
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 /// Matmul precision enum
 pub enum MatmulPrecision {
+    /// f32, strict IEEE, no reduced-precision reductions
+    Pedantic,
     /// f32, cublas default
     Highest,
     /// TF32, pytorch 'high'
